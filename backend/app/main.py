@@ -61,10 +61,6 @@ def create_app() -> FastAPI:
             "name": "users",
             "description": "User management endpoints",
         },
-        {
-            "name": "items",
-            "description": "Example CRUD endpoints demonstrating the API pattern",
-        },
     ]
 
     app = FastAPI(
@@ -88,14 +84,6 @@ A FastAPI project
         docs_url=docs_url,
         redoc_url=redoc_url,
         openapi_tags=openapi_tags,
-        contact={
-            "name": "Your Name",
-            "email": "your@email.com",
-        },
-        license_info={
-            "name": "MIT",
-            "identifier": "MIT",
-        },
         lifespan=lifespan,
         default_response_class=ORJSONResponse,
     )

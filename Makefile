@@ -36,13 +36,7 @@ test:
 test-cov:
 	uv run --directory backend pytest tests/ -v --cov=app --cov-report=html --cov-report=term-missing
 
-# === Database ===
-db-init: docker-db
-	@echo "Waiting for PostgreSQL to be ready..."
-	@sleep 3
-	uv run --directory backend openstudyindia db upgrade
-	@echo ""
-	@echo "✅ Database initialized!"
+
 
 db-migrate:
 	@read -p "Migration message: " msg; \

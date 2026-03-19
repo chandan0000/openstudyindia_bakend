@@ -2,7 +2,7 @@
 # ruff: noqa: E402 - Import at bottom to avoid circular imports
 
 import click
-from tabulate import tabulate
+from tabulate import tabulate  # type: ignore[import]
 
 
 @click.group()
@@ -59,7 +59,7 @@ def db_cli():
 @db_cli.command("init")
 def db_init():
     """Initialize the database (run all migrations)."""
-    from alembic import command
+    from alembic import command  # type: ignore[attr-defined]
     from alembic.config import Config
 
     click.echo("Initializing database...")
@@ -72,7 +72,7 @@ def db_init():
 @click.option("-m", "--message", required=True, help="Migration message")
 def db_migrate(message: str):
     """Create a new migration."""
-    from alembic import command
+    from alembic import command  # type: ignore[attr-defined]
     from alembic.config import Config
 
     alembic_cfg = Config("alembic.ini")
@@ -84,7 +84,7 @@ def db_migrate(message: str):
 @click.option("--revision", default="head", help="Revision to upgrade to")
 def db_upgrade(revision: str):
     """Run database migrations."""
-    from alembic import command
+    from alembic import command  # type: ignore[attr-defined]
     from alembic.config import Config
 
     alembic_cfg = Config("alembic.ini")
@@ -96,7 +96,7 @@ def db_upgrade(revision: str):
 @click.option("--revision", default="-1", help="Revision to downgrade to")
 def db_downgrade(revision: str):
     """Rollback database migrations."""
-    from alembic import command
+    from alembic import command  # type: ignore[attr-defined]
     from alembic.config import Config
 
     alembic_cfg = Config("alembic.ini")
@@ -107,7 +107,7 @@ def db_downgrade(revision: str):
 @db_cli.command("current")
 def db_current():
     """Show current migration revision."""
-    from alembic import command
+    from alembic import command  # type: ignore[attr-defined]
     from alembic.config import Config
 
     alembic_cfg = Config("alembic.ini")
@@ -117,7 +117,7 @@ def db_current():
 @db_cli.command("history")
 def db_history():
     """Show migration history."""
-    from alembic import command
+    from alembic import command  # type: ignore[attr-defined]
     from alembic.config import Config
 
     alembic_cfg = Config("alembic.ini")

@@ -19,7 +19,6 @@ DBSession = Annotated[AsyncSession, Depends(get_db_session)]
 # === Service Dependencies ===
 
 from app.services.user import UserService
-from app.services.item import ItemService
 
 
 def get_user_service(db: DBSession) -> UserService:
@@ -29,13 +28,6 @@ def get_user_service(db: DBSession) -> UserService:
 
 UserSvc = Annotated[UserService, Depends(get_user_service)]
 
-
-def get_item_service(db: DBSession) -> ItemService:
-    """Create ItemService instance with database session."""
-    return ItemService(db)
-
-
-ItemSvc = Annotated[ItemService, Depends(get_item_service)]
 
 # === Authentication Dependencies ===
 
