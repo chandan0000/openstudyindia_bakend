@@ -90,7 +90,7 @@ class UserService:
         """
         user = await self.get_by_id(user_id)
 
-        update_data = user_in.model_dump(exclude_unset=True)
+        update_data = user_in.model_dump(exclude_unset=True, exclude_none=True)
         if "password" in update_data:
             update_data["hashed_password"] = get_password_hash(update_data.pop("password"))
 

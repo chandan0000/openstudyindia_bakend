@@ -72,6 +72,7 @@ async def update(
 
     Note: If password needs updating, it should already be hashed.
     """
+
     for field, value in update_data.items():
         setattr(db_user, field, value)
 

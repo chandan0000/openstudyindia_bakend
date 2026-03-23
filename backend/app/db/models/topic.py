@@ -16,5 +16,5 @@ class Topic(Base, TimestampMixin):
     subject_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), ForeignKey("subjects.id"), nullable=False
     )
-    subject = relationship("Subject", back_populates="topics")
+    subject = relationship("Subjects", back_populates="topics")
     __table_args__ = (UniqueConstraint("subject_id", "name"),)
