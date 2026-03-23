@@ -1,9 +1,10 @@
 """User database model."""
 
 import uuid
+from datetime import datetime
 from enum import Enum
 
-from sqlalchemy import Boolean, String, text
+from sqlalchemy import Boolean, DateTime, String, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -37,6 +38,7 @@ class User(Base, TimestampMixin):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     role: Mapped[str] = mapped_column(String(50), default=UserRole.USER.value, nullable=False)
+    last_login: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     @property
     def user_role(self) -> UserRole:

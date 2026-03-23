@@ -8,9 +8,15 @@ from sqlalchemy import engine_from_config, pool
 
 from app.core.config import settings
 from app.db.base import Base
-
-# Import all models here to ensure they are registered with metadata
-from app.db.models.user import User  # noqa: F401
+from app.db.models import (  # noqa: F401
+    Exam,
+    Goal,
+    StudyPlan,
+    StudySession,
+    Subjects,
+    Topic,
+    User,
+)
 
 config = context.config
 
