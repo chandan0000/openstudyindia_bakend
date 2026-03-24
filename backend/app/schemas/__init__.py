@@ -1,5 +1,6 @@
 """Pydantic schemas."""
 
+from app.schemas.custom_page import CustomPage
 from app.schemas.goal import GoalCreate, GoalResponse, GoalUpdate
 from app.schemas.study_plan import StudyPlanCreate
 from app.schemas.study_session import SessionResponse, SessionStart
@@ -9,6 +10,7 @@ from app.schemas.topic import TopicCreate, TopicResponse
 from app.schemas.user import UserCreate, UserRead, UserUpdate
 
 __all__ = [
+    "CustomPage",
     "GoalCreate",
     "GoalResponse",
     "GoalUpdate",
