@@ -19,7 +19,7 @@ class StudyPlan(Base, TimestampMixin):
     topic_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), ForeignKey("topics.id", ondelete="CASCADE"), nullable=False
     )
-    start_time: Mapped[datetime] = mapped_column(DateTime)
-    end_time: Mapped[datetime] = mapped_column(DateTime)
-    date: Mapped[datetime] = mapped_column(DateTime)
+    start_time = mapped_column(DateTime(timezone=True))
+    end_time = mapped_column(DateTime(timezone=True))
+    date: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     __table_args__ = (Index("idx_study_plans_user_date", "user_id", "date"),)
