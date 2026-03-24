@@ -6,8 +6,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models.topic import Topic
 
 
-async def get_by_id(db: AsyncSession, topic_id: UUID) -> Topic | None:
-    return await db.get(Topic, topic_id)
+async def get_by_id(db: AsyncSession, topic_id: UUID, user_id: UUID) -> Topic | None:
+    result = await db.execute(
+        select(Topic)
+        .join(Topic.subject)
+        .where(
+            Topic.id == topic_id,
+            Topic.subject.user_id == user_id,
+        )
+    )
+    return result.scalar_one_or_none()
 
 
 async def get_by_name(
@@ -45,8 +53,16 @@ async def create(
     return topic
 
 
-async def delete(db: AsyncSession, topic_id: UUID) -> Topic | None:
-    topic = await get_by_id(db, topic_id)
+async def update(db: AsyncSession, *, topic: Topic, data: dict) -> Topic:
+    for key, value in data.items():
+        setattr(topic, key, value)
+    await db.flush()
+    await db.refresh(topic)
+    return topic
+
+
+async def delete(db: AsyncSession, topic_id: UUID, user_id: UUID) -> Topic | None:
+    topic = await get_by_id(db, topic_id, user_id)
     if topic:
         await db.delete(topic)
         await db.flush()

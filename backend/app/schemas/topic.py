@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from app.schemas.base import BaseSchema
+from app.schemas.base import BaseSchema, TimestampSchema
 
 
 class TopicCreate(BaseSchema):
@@ -8,7 +8,12 @@ class TopicCreate(BaseSchema):
     subject_id: UUID
 
 
-class TopicResponse(BaseSchema):
+class TopicUpdate(BaseSchema):
+    name: str | None = None
+    subject_id: UUID | None = None
+
+
+class TopicResponse(TimestampSchema):
     id: UUID
     name: str
     subject_id: UUID

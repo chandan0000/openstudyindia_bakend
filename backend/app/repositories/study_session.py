@@ -6,6 +6,16 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models.study_session import StudySession
 
 
+async def get_by_id(db: AsyncSession, session_id: UUID, user_id: UUID) -> StudySession | None:
+    result = await db.execute(
+        select(StudySession).where(
+            StudySession.id == session_id,
+            StudySession.user_id == user_id,
+        )
+    )
+    return result.scalar_one_or_none()
+
+
 async def get_active_session(
     db: AsyncSession,
     user_id: UUID,
@@ -54,3 +64,11 @@ async def update(
 async def get_multi(db: AsyncSession, user_id: UUID):
     result = await db.execute(select(StudySession).where(StudySession.user_id == user_id))
     return list(result.scalars().all())
+
+
+async def delete(db: AsyncSession, session_id: UUID, user_id: UUID) -> StudySession | None:
+    session = await get_by_id(db, session_id, user_id)
+    if session:
+        await db.delete(session)
+        await db.flush()
+    return session

@@ -61,6 +61,30 @@ def create_app() -> FastAPI:
             "name": "users",
             "description": "User management endpoints",
         },
+        {
+            "name": "subjects",
+            "description": "Endpoints for managing subjects",
+        },
+        {
+            "name": "study_plans",
+            "description": "Endpoints for managing study plans",
+        },
+        {
+            "name": "topics",
+            "description": "Endpoints for managing topics",
+        },
+        {
+            "name": "sessions",
+            "description": "Endpoints for managing study sessions",
+        },
+        {
+            "name": "goals",
+            "description": "Endpoints for managing goals",
+        },
+        {
+            "name": "exams",
+            "description": "Endpoints for managing exams",
+        },
     ]
 
     app = FastAPI(

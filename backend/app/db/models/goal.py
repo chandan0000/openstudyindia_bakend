@@ -19,6 +19,8 @@ class Goal(Base, TimestampMixin):
 
     title: Mapped[str] = mapped_column(String(255))
 
+    target_value: Mapped[int] = mapped_column()
+
     current_value: Mapped[int] = mapped_column(default=0)
 
     status: Mapped[str] = mapped_column(String(50), default="pending")
