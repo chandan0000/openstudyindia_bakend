@@ -1,4 +1,5 @@
-from datetime import date, datetime
+from datetime import date as DateType
+from datetime import datetime
 from uuid import UUID
 
 from pydantic import field_validator
@@ -8,7 +9,7 @@ from app.schemas.base import BaseSchema, TimestampSchema
 
 class StudyPlanCreate(BaseSchema):
     topic_id: UUID
-    date: date
+    date: DateType
     start_time: datetime
     end_time: datetime
 
@@ -21,7 +22,7 @@ class StudyPlanCreate(BaseSchema):
 
 class StudyPlanUpdate(BaseSchema):
     topic_id: UUID | None = None
-    date: date | None = None
+    date: DateType | None = None
     start_time: datetime | None = None
     end_time: datetime | None = None
 
@@ -41,7 +42,7 @@ class StudyPlanResponse(TimestampSchema):
     id: UUID
     user_id: UUID
     topic_id: UUID
-    date: date
+    date: DateType
     start_time: datetime
     end_time: datetime
 
