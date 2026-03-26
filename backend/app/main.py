@@ -5,13 +5,14 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
-from fastapi_pagination import add_pagination
+from fastapi_pagination import add_pagination, set_page
 
 from app.api.exception_handlers import register_exception_handlers
 from app.api.router import api_router
 from app.core.config import settings
 from app.core.logfire_setup import instrument_app, setup_logfire
 from app.core.middleware import RequestIDMiddleware
+from app.schemas.custom_page import CustomPage
 
 
 @asynccontextmanager
@@ -150,6 +151,7 @@ A FastAPI project
 
     # Pagination
     add_pagination(app)
+    set_page(CustomPage)
 
     return app
 

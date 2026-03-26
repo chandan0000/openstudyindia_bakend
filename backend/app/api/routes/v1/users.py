@@ -6,7 +6,6 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, status
-from fastapi_pagination import Page
 from fastapi_pagination.ext.sqlalchemy import paginate
 from sqlalchemy import select
 
@@ -18,6 +17,7 @@ from app.api.deps import (
 )
 from app.db.models.user import User, UserRole
 from app.schemas.user import UserRead, UserUpdate
+from app.schemas.custom_page import CustomPage
 
 router = APIRouter()
 
@@ -51,7 +51,7 @@ async def update_current_user(
     return user
 
 
-@router.get("", response_model=Page[UserRead])
+@router.get("", response_model=CustomPage[UserRead])
 async def read_users(
     db: DBSession,
     current_user: Annotated[User, Depends(RoleChecker(UserRole.ADMIN))],

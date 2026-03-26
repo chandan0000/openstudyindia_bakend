@@ -1,10 +1,10 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends
-from fastapi_pagination import Page
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db_session
+from app.schemas.custom_page import CustomPage
 from app.schemas.study_session import SessionResponse, SessionStart, SessionUpdate
 from app.services.study_session import StudySessionService
 
@@ -30,7 +30,7 @@ async def end_session(
     return await service.end(user.id)
 
 
-@router.get("/", response_model=Page[SessionResponse])
+@router.get("/", response_model=CustomPage[SessionResponse])
 async def get_sessions(
     db: AsyncSession = Depends(get_db_session),
     user=Depends(get_current_user),

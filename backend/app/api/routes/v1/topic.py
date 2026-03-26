@@ -1,10 +1,10 @@
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query
-from fastapi_pagination import Page
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db_session
+from app.schemas.custom_page import CustomPage
 from app.schemas.topic import TopicCreate, TopicResponse, TopicUpdate
 from app.services.topic import TopicService
 
@@ -21,7 +21,7 @@ async def create_topic(
     return await service.create(user.id, data)
 
 
-@router.get("/", response_model=Page[TopicResponse])
+@router.get("/", response_model=CustomPage[TopicResponse])
 async def get_topics(
     subject_id: UUID = Query(...),
     db: AsyncSession = Depends(get_db_session),

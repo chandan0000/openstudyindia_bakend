@@ -2,10 +2,10 @@ from datetime import UTC, datetime
 from uuid import UUID
 
 from fastapi import APIRouter, Depends
-from fastapi_pagination import Page
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_current_user, get_db_session
+from app.schemas.custom_page import CustomPage
 from app.schemas.exam import ExamCreate, ExamResponse, ExamUpdate
 from app.services.exam import ExamService
 
@@ -27,7 +27,7 @@ async def create_exam(
     return exam
 
 
-@router.get("/", response_model=Page[ExamResponse])
+@router.get("/", response_model=CustomPage[ExamResponse])
 async def get_exams(
     db: AsyncSession = Depends(get_db_session),
     user=Depends(get_current_user),

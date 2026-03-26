@@ -1,13 +1,15 @@
-from typing import Generic, TypeVar
+from collections.abc import Sequence
+from typing import TypeVar
 
-from pydantic import BaseModel
+from fastapi_pagination import Page
+from pydantic import ConfigDict, Field
 
 T = TypeVar("T")
 
 
-class CustomPage(BaseModel, Generic[T]):
-    data: list[T]
-    total: int
-    page: int
-    size: int
-    pages: int
+class CustomPage(Page[T]):
+    """Custom pagination response that uses 'data' instead of 'items'"""
+
+    items: Sequence[T] = Field(serialization_alias="data")
+
+    model_config = ConfigDict(populate_by_name=True)
